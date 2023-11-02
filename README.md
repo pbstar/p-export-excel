@@ -36,13 +36,13 @@ pExportExcel({
 ```
 ### 配置项
 #### excel配置项
-fileName--文件名
-footName--表名
-theadList--表头信息
-tbodyList--内容数据信息
+fileName--文件名<br>
+footName--表名<br>
+theadList--表头信息<br>
+tbodyList--内容数据信息<br>
 #### 单元格配置项
-text--内容
-colspan--水平合并单元格
-rowspan--垂直合并单元格
-style--样式
-align--对齐方式
+text--内容<br>
+colspan--水平合并单元格<br>
+rowspan--垂直合并单元格<br>
+style--样式<br>
+align--对齐方式<br>

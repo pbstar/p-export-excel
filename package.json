@@ -1,0 +1,37 @@
+{
+  "name": "p-export-excel",
+  "version": "0.0.6",
+  "description": "p-export-excel",
+  "main": "./lib/p-export-excel.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "bugs": {
+    "qq": "24612582",
+    "email": "pbstar@sina.cn"
+  },
+  "contributors": [
+    {
+      "name": "彭勃",
+      "email": "pbstar@sina.cn"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pbstar/p-export-excel"
+  },
+  "homepage": "",
+  "keywords": [
+    "p-export-excel",
+    "export-excel"
+  ],
+  "author": "pengbo <pbstar@sina.cn>",
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^5.89.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
+  }
+}

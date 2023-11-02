@@ -1,6 +1,6 @@
 {
   "name": "p-export-excel",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "p-export-excel",
   "main": "./lib/p-export-excel.js",
   "scripts": {

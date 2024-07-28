@@ -1,16 +1,24 @@
 {
   "name": "p-export-excel",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "p-export-excel",
-  "main": "./lib/p-export-excel.js",
+  "main": "./lib/p-export-excel.es.js",
+  "browser": "./lib/p-export-excel.umd.js",
+  "unpkg": "./lib/p-export-excel.umd.js",
+  "type": "module",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "rollup -c",
+    "dev": "cross-env NODE_ENV=dev rollup -c -w"
   },
   "bugs": {
-    "qq": "24612582",
-    "email": "pbstar@sina.cn"
+    "url": "https://github.com/pbstar/p-export-excel/issues"
   },
+  "files": [
+    "lib",
+    "index.d.ts",
+    "README.md"
+  ],
   "contributors": [
     {
       "name": "彭勃",
@@ -19,19 +27,25 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/pbstar/p-export-excel"
+    "url": "git+https://github.com/pbstar/p-export-excel.git"
   },
-  "homepage": "",
+  "homepage": "https://github.com/pbstar/p-export-excel",
   "keywords": [
     "p-export-excel",
-    "export-excel"
+    "xlsx",
+    "excel",
+    "export-excel",
+    "export-excel-vue"
   ],
   "author": "pengbo <pbstar@sina.cn>",
   "license": "MIT",
-  "dependencies": {
-    "webpack": "^5.89.0"
-  },
   "devDependencies": {
-    "webpack-cli": "^5.1.4"
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.14.10",
+    "cross-env": "^7.0.3",
+    "rollup": "^4.17.2",
+    "rollup-plugin-serve": "^1.1.1",
+    "tslib": "^2.6.3"
   }
 }

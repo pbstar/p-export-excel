@@ -1,48 +1,62 @@
 ## p-export-excel 官方文档
 
-### 安装引入
-#### npm安装
-```
-npm i p-export-excel
+[![](https://img.shields.io/badge/GitHub-E34C26.svg)](https://github.com/pbstar/p-export-excel)
+[![GitHub license](https://img.shields.io/github/license/pbstar/p-export-excel?style=flat&color=109BCD)](https://github.com/pbstar/p-export-excel?tab=MIT-1-ov-file#readme)
+[![GitHub stars](https://img.shields.io/github/stars/pbstar/p-export-excel?style=flat&color=d48806)](https://github.com/pbstar/p-export-excel/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/pbstar/p-export-excel?style=flat&color=C6538C)](https://github.com/pbstar/p-export-excel/forks)
+[![NPM Version](https://img.shields.io/npm/v/p-export-excel?style=flat&color=d4b106)](https://www.npmjs.com/package/p-export-excel)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/p-export-excel?style=flat&color=41B883)](https://www.npmjs.com/package/p-export-excel)
 
+p-export-excel 是一个导出 Excel 的 js 插件。它有着轻量且高效的特性，支持丰富的自定义配置选项。
+
+### 配置
+
+- el: 滚动容器的 DOM 元素。
+- direction: 滚动方向，可选值包括 'up' (默认) 、 'down' 、 'left' 、 'right'。
+- speed: 滚动速度，以毫秒为单位，默认为 100。
+- hoverStop: 是否在鼠标移入时停止滚动，默认为 false。
+- auto: 是否自动开始滚动，默认为 true。
+- loop: 是否循环滚动，默认为 true。
+- rest: 在滚动一段距离后停留一段时间，默认为 null，例如{distance: 100, time: 2000}。
+  - distance: 停留前滚动的距离，以 px 为单位，必须为 10 的整数倍，默认为 100。
+  - time: 停留的时间，以毫秒为单位，默认为 2000。
+
+### 安装引入
+
+#### npm 安装
+
+```bash
+npm install p-export-excel --save
+```
+
+#### esm 引入
+
+```javascript
 import pExportExcel from "p-export-excel";
 ```
-#### cdn引入
+
+#### cdn 引入
+
+```html
+<script src="https://unpkg.com/p-export-excel@[version]/lib/p-export-excel.umd.js"></script>
 ```
-<script src="https://unpkg.com/p-export-excel@1.0.0/lib/p-export-excel.js"></script>
-```
+
 ### 使用示例
-```
-let ShowLabel = [[{ text: '学员姓名' }, { text: '手机号' }]];
-let list = []
-for (let i = 0; i < 5; i++) {
-  list.push([{
-    text: "学员" + i
-  }, {
-    text: 18800000000 + i,
-    style: "color:red"
-  }])
-}
-list.push([{
-  text: "注：此数据为p-export-excel测试数据！",
-  colspan: "2",
-  align: "left"
-}])
+
+```javascript
+const sheets = [
+  {
+    table: {
+      rows: [
+        {
+          cells: ["Cell 1", "Cell 2", "Cell 3"],
+        },
+      ],
+    },
+  },
+];
 pExportExcel({
-  fileName: "学员统计表",
-  theadList: ShowLabel,
-  tbodyList: list
-})
+  fileName: "示例数据",
+  sheets: sheets,
+});
 ```
-### 配置项
-#### excel配置项
-fileName--文件名<br>
-footName--表名<br>
-theadList--表头信息<br>
-tbodyList--内容数据信息<br>
-#### 单元格配置项
-text--内容<br>
-colspan--水平合并单元格<br>
-rowspan--垂直合并单元格<br>
-style--样式<br>
-align--对齐方式<br>

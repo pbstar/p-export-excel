@@ -9,54 +9,96 @@
 </head>
 
 <body>
-  <button id="btn">导出</button>
+  <button id="btn1">导出简约表</button>
+  <button id="btn2">导出复杂表</button>
   <script src="../lib/p-export-excel.umd.js"></script>
   <script>
-    // const sheets = [{
-    //   name: "Sheet123",
-    //   style: "",
-    //   table: {
-    //     style: "",
-    //     rows: [
-    //       {
-    //         style: "",
-    //         cells: [
-    //           {
-    //             text: "Cell 1",
-    //             style: "",
-    //             colSpan: 1,
-    //             rowSpan: 1,
-    //           }, "Cell 2", "Cell 3"
-    //         ]
-    //       },
-    //       {
-    //         style: "",
-    //         cells: [
-    //           "Cell 4", "Cell 5", "Cell 6"
-    //         ]
-    //       }
-    //     ]
-    //   }
-    // }]
-    const sheets = [
-      {
-        table: {
+    // 简约数据表
+    const data1 = {
+      fileName: "简约数据表",
+      sheets: [
+        {
           rows: [
             {
               cells: ["Cell 1", "Cell 2", "Cell 3"],
+            }, {
+              cells: ["Cell 4", "Cell 5", "Cell 5"],
             },
           ],
         },
-      },
-    ];
-    let btn = document.getElementById('btn')
-    btn.onclick = function () {
-      pExportExcel({
-        fileName: "示例数据",
-        sheets: sheets
-      })
+      ]
+    };
+    let btn1 = document.getElementById('btn1')
+    btn1.onclick = function () {
+      pExportExcel(data1)
     }
-
+    // 复杂数据表
+    const data2 = {
+      fileName: "复杂数据表",
+      rowStyle: "height: 40px;line-height: 40px;",
+      cellStyle: "border: 1px solid #666;",
+      sheets: [{
+        sheetName: "学生名单",
+        style: "font-size: 16px;font-family: 微软雅黑;",
+        rows: [
+          {
+            style: "font-weight: bold;color: #fff;font-size: 18px;",
+            cells: [
+              {
+                style: "background-color: #29B8DB;text-align: center;border: 1px solid #fff;",
+                text: "三年级（1）班全体学生名单",
+                colSpan: 5,
+              }
+            ]
+          },
+          {
+            style: "font-weight: bold;color: #fff;",
+            cells: [
+              {
+                style: "background-color: #29B8DB;border: 1px solid #fff;",
+                text: "序号",
+              },
+              {
+                style: "background-color: #29B8DB;border: 1px solid #fff;",
+                text: "姓名",
+              },
+              {
+                style: "background-color: #29B8DB;border: 1px solid #fff;",
+                text: "性别",
+              },
+              {
+                style: "background-color: #29B8DB;border: 1px solid #fff;",
+                text: "年龄",
+              },
+              {
+                style: "background-color: #29B8DB;border: 1px solid #fff;",
+                text: "备注",
+              }
+            ]
+          },
+          {
+            style: "",
+            cells: ["1", "张三", "男", 12, ""]
+          },
+          {
+            style: "background-color: #F5F5F5;",
+            cells: ["2", "李四", "女", 11, ""]
+          },
+          {
+            style: "",
+            cells: ["3", "王五", "男", 12, "校长侄子"]
+          },
+          {
+            style: "background-color: #F5F5F5;",
+            cells: ["4", "赵六", "女", 11, ""]
+          }
+        ]
+      }]
+    }
+    let btn2 = document.getElementById('btn2')
+    btn2.onclick = function () {
+      pExportExcel(data2)
+    }
   </script>
 </body>
 

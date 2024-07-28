@@ -11,15 +11,20 @@ p-export-excel 是一个导出 Excel 的 js 插件。它有着轻量且高效的
 
 ### 配置
 
-- el: 滚动容器的 DOM 元素。
-- direction: 滚动方向，可选值包括 'up' (默认) 、 'down' 、 'left' 、 'right'。
-- speed: 滚动速度，以毫秒为单位，默认为 100。
-- hoverStop: 是否在鼠标移入时停止滚动，默认为 false。
-- auto: 是否自动开始滚动，默认为 true。
-- loop: 是否循环滚动，默认为 true。
-- rest: 在滚动一段距离后停留一段时间，默认为 null，例如{distance: 100, time: 2000}。
-  - distance: 停留前滚动的距离，以 px 为单位，必须为 10 的整数倍，默认为 100。
-  - time: 停留的时间，以毫秒为单位，默认为 2000。
+- fileName: 文件名，字符串。
+- sheets: 工作表，数组（值为对象）。
+  - sheetName: 工作表名称，字符串。
+  - style: 工作表样式，支持 css 样式，字符串。
+  - rows: 数据行，数组（值为对象）。
+    - style: 数据行样式，支持 css 样式，字符串。
+    - cells: 单元格，数组（值为对象或数值或字符串）。
+      - text: 单元格内容，字符串或数字。
+      - style: 单元格样式，支持 css 样式，字符串。
+      - colSpan: 单元格横向合并列数，数字。
+      - rowSpan: 单元格纵向合并行数，数字。
+- sheetStyle: 工作表样式，支持 css 样式，字符串。
+- rowStyle: 数据行样式，支持 css 样式，字符串。
+- cellStyle: 单元格样式，支持 css 样式，字符串。
 
 ### 安装引入
 
@@ -44,19 +49,27 @@ import pExportExcel from "p-export-excel";
 ### 使用示例
 
 ```javascript
-const sheets = [
-  {
-    table: {
+// 简约数据表
+const data = {
+  fileName: "示例数据表",
+  sheets: [
+    {
       rows: [
         {
           cells: ["Cell 1", "Cell 2", "Cell 3"],
         },
+        {
+          cells: ["Cell 4", "Cell 5", "Cell 5"],
+        },
       ],
     },
-  },
-];
-pExportExcel({
-  fileName: "示例数据",
-  sheets: sheets,
-});
+  ],
+};
+// 复杂数据表
+
+pExportExcel(data);
 ```
+
+### 注意事项
+
+- 1.xlsx 文件的字体单位为磅（pt），所以样式中设置的字体大小（px）将被转换，具体公式为 pt≈72\*px/DPI。

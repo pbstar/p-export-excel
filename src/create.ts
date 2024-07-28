@@ -1,5 +1,5 @@
-import { Sheet } from './types'
-export default function create(sheets: Sheet[]) {
+import { Config } from './types'
+export default function create(e: Config) {
   let excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
   excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
   excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel';
@@ -9,11 +9,11 @@ export default function create(sheets: Sheet[]) {
   excelFile += "<xml>";
   excelFile += "<x:ExcelWorkbook>";
   excelFile += "<x:ExcelWorksheets>";
-  for (let i = 0; i < sheets.length; i++) {
-    let sheet = sheets[i];
+  for (let i = 0; i < e.sheets.length; i++) {
+    let sheet = e.sheets[i];
     excelFile += "<x:ExcelWorksheet>";
     excelFile += "<x:Name>";
-    excelFile += sheet.name || 'sheet' + (i + 1);
+    excelFile += sheet.sheetName || 'sheet' + (i + 1);
     excelFile += "</x:Name>";
     excelFile += "<x:WorksheetOptions>";
     excelFile += "<x:DisplayGridlines/>";
@@ -26,16 +26,19 @@ export default function create(sheets: Sheet[]) {
   excelFile += "<![endif]-->";
   excelFile += "</head>";
   excelFile += "<body>";
-  for (let i = 0; i < sheets.length; i++) {
-    let sheet = sheets[i];
-    excelFile += "<table style='font-family:SimSun;vnd.ms-excel.numberformat:@'>";
-    for (let j = 0; j < sheet.table.rows.length; j++) {
-      let row = sheet.table.rows[j];
-      excelFile += "<tr align='center'>";
+  for (let i = 0; i < e.sheets.length; i++) {
+    let sheet = e.sheets[i];
+    let sheetStyle = e.sheetStyle + sheet.style
+    excelFile += "<table style='font-family:宋体;" + sheetStyle + ";vnd.ms-excel.numberformat:@'>";
+    for (let j = 0; j < sheet.rows.length; j++) {
+      let row = sheet.rows[j];
+      let rowStyle = e.rowStyle + row.style
+      excelFile += "<tr style='" + rowStyle + "'>";
       for (let k = 0; k < row.cells.length; k++) {
         let cell = row.cells[k];
         if (cell instanceof Object) {
-          excelFile += "<td colspan=" + cell.colSpan + " rowspan=" + cell.rowSpan + " style=" + cell.style + " align=" + cell.align + ">" + cell.text + "</td>";
+          let cellStyle = e.cellStyle + cell.style
+          excelFile += "<td colspan=" + cell.colSpan + " rowspan=" + cell.rowSpan + " style='" + cellStyle + "'>" + cell.text + "</td>";
         } else {
           excelFile += "<td>" + cell + "</td>";
         }
@@ -46,5 +49,7 @@ export default function create(sheets: Sheet[]) {
   }
   excelFile += "</body>";
   excelFile += "</html>";
+  console.log(excelFile);
+  
   return 'data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(excelFile);
 }

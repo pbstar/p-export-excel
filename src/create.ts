@@ -1,55 +1,85 @@
 import { Config } from './types'
-export default function create(e: Config) {
-  let excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
-  excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
-  excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel';
-  excelFile += '; charset=UTF-8">';
-  excelFile += "<head>";
-  excelFile += "<!--[if gte mso 9]>";
-  excelFile += "<xml>";
-  excelFile += "<x:ExcelWorkbook>";
-  excelFile += "<x:ExcelWorksheets>";
+export function createXlsx(e: Config) {
+  let xlsxFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
+  xlsxFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+  xlsxFile += "<head>";
+  xlsxFile += "<!--[if gte mso 9]>";
+  xlsxFile += "<xml>";
+  xlsxFile += "<x:ExcelWorkbook>";
+  xlsxFile += "<x:ExcelWorksheets>";
   for (let i = 0; i < e.sheets.length; i++) {
     let sheet = e.sheets[i];
-    excelFile += "<x:ExcelWorksheet>";
-    excelFile += "<x:Name>";
-    excelFile += sheet.sheetName || 'sheet' + (i + 1);
-    excelFile += "</x:Name>";
-    excelFile += "<x:WorksheetOptions>";
-    excelFile += "<x:DisplayGridlines/>";
-    excelFile += "</x:WorksheetOptions>";
-    excelFile += "</x:ExcelWorksheet>";
+    xlsxFile += "<x:ExcelWorksheet>";
+    xlsxFile += "<x:Name>";
+    xlsxFile += sheet.sheetName || 'sheet' + (i + 1);
+    xlsxFile += "</x:Name>";
+    xlsxFile += "<x:WorksheetOptions>";
+    xlsxFile += "<x:DisplayGridlines/>";
+    xlsxFile += "</x:WorksheetOptions>";
+    xlsxFile += "</x:ExcelWorksheet>";
   }
-  excelFile += "</x:ExcelWorksheets>";
-  excelFile += "</x:ExcelWorkbook>";
-  excelFile += "</xml>";
-  excelFile += "<![endif]-->";
-  excelFile += "</head>";
-  excelFile += "<body>";
+  xlsxFile += "</x:ExcelWorksheets>";
+  xlsxFile += "</x:ExcelWorkbook>";
+  xlsxFile += "</xml>";
+  xlsxFile += "<![endif]-->";
+  xlsxFile += "</head>";
+  xlsxFile += "<body>";
   for (let i = 0; i < e.sheets.length; i++) {
     let sheet = e.sheets[i];
-    let sheetStyle = e.sheetStyle + sheet.style
-    excelFile += "<table style='font-family:宋体;" + sheetStyle + ";vnd.ms-excel.numberformat:@'>";
+    let sheetStyle = ''
+    if (e.sheetStyle) sheetStyle += e.sheetStyle
+    if (sheet.style) sheetStyle += sheet.style
+    xlsxFile += "<table style='font-family:宋体;" + sheetStyle + ";vnd.ms-excel.numberformat:@'>";
     for (let j = 0; j < sheet.rows.length; j++) {
       let row = sheet.rows[j];
-      let rowStyle = e.rowStyle + row.style
-      excelFile += "<tr style='" + rowStyle + "'>";
+      let rowStyle = ''
+      if (e.rowStyle) rowStyle += e.rowStyle
+      if (row.style) rowStyle += row.style
+      xlsxFile += "<tr style='" + rowStyle + "'>";
       for (let k = 0; k < row.cells.length; k++) {
         let cell = row.cells[k];
         if (cell instanceof Object) {
-          let cellStyle = e.cellStyle + cell.style
-          excelFile += "<td colspan=" + cell.colSpan + " rowspan=" + cell.rowSpan + " style='" + cellStyle + "'>" + cell.text + "</td>";
+          let cellStyle = ''
+          if (e.cellStyle) cellStyle += e.cellStyle
+          if (cell.style) cellStyle += cell.style
+          xlsxFile += "<td";
+          if (cell.colspan) xlsxFile += " colspan=" + cell.colspan;
+          if (cell.rowspan) xlsxFile += " rowspan=" + cell.rowspan;
+          xlsxFile += " style='" + cellStyle + "'>" + cell.text + "</td>";
         } else {
-          excelFile += "<td>" + cell + "</td>";
+          xlsxFile += "<td>" + cell + "</td>";
         }
       }
-      excelFile += "</tr>";
+      xlsxFile += "</tr>";
     }
-    excelFile += "</table>";
+    xlsxFile += "</table>";
   }
-  excelFile += "</body>";
-  excelFile += "</html>";
-  console.log(excelFile);
-  
-  return 'data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(excelFile);
+  xlsxFile += "</body>";
+  xlsxFile += "</html>";
+  console.log(xlsxFile);
+  return 'data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(xlsxFile);
+}
+export function createCsv(e: Config) {
+  let csvFile = '';
+  if (e.sheets.length > 0) {
+    if (e.sheets.length > 1) {
+      console.warn('csv格式下多表导出仅会导出第一个表')
+    }
+    let sheet = e.sheets[0];
+    for (let j = 0; j < sheet.rows.length; j++) {
+      let row = sheet.rows[j];
+      if (j > 0) csvFile += "\n";
+      for (let k = 0; k < row.cells.length; k++) {
+        let cell = row.cells[k];
+        if (k > 0) csvFile += ",";
+        if (cell instanceof Object) {
+          csvFile += cell.text;
+        } else {
+          csvFile += cell;
+        }
+      }
+    }
+  }
+  console.log(csvFile);
+  return 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(csvFile);
 }

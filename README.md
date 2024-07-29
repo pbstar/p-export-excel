@@ -12,6 +12,7 @@ p-export-excel 是一个导出 Excel 的 js 插件。它有着轻量且高效的
 ### 配置
 
 - fileName: 文件名，字符串。
+- fileType: 文件类型，字符串（值为 xlsx、csv，默认为 xlsx）。
 - sheets: 工作表，数组（值为对象）。
   - sheetName: 工作表名称，字符串。
   - style: 工作表样式，支持 css 样式，字符串。
@@ -20,11 +21,12 @@ p-export-excel 是一个导出 Excel 的 js 插件。它有着轻量且高效的
     - cells: 单元格，数组（值为对象或数值或字符串）。
       - text: 单元格内容，字符串或数字。
       - style: 单元格样式，支持 css 样式，字符串。
-      - colSpan: 单元格横向合并列数，数字。
-      - rowSpan: 单元格纵向合并行数，数字。
+      - colspan: 单元格横向合并列数，数字。
+      - rowspan: 单元格纵向合并行数，数字。
 - sheetStyle: 工作表样式，支持 css 样式，字符串。
 - rowStyle: 数据行样式，支持 css 样式，字符串。
 - cellStyle: 单元格样式，支持 css 样式，字符串。
+- resType: 资源类型，字符串（值为 download、file、base64、blob，默认为 download）。
 
 ### 安装引入
 
@@ -50,7 +52,7 @@ import pExportExcel from "p-export-excel";
 
 ```javascript
 // 简约数据表
-const data = {
+const option = {
   fileName: "示例数据表",
   sheets: [
     {
@@ -67,9 +69,11 @@ const data = {
 };
 // 复杂数据表
 
-pExportExcel(data);
+pExportExcel(option);
 ```
 
 ### 注意事项
 
 - 1.xlsx 文件的字体单位为磅（pt），所以样式中设置的字体大小（px）将被转换，具体公式为 pt≈72\*px/DPI。
+- 2.csv 文件多表导出仅会导出第一个表。
+- 3.csv 文件仅导出文本，不支持样式以及单元格合并等。

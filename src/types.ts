@@ -1,10 +1,12 @@
 export type Config = {
   [key: string]: any,
   fileName: string,
+  fileType: 'xlsx' | 'csv',
   sheets: Sheet[],
   sheetStyle: string,
   rowStyle: string,
-  cellStyle: string
+  cellStyle: string,
+  resType: 'download' | 'file' | 'base64' | 'blob'
 }
 export type Sheet = {
   [key: string]: any,
@@ -21,6 +23,6 @@ export type Cell = {
   [key: string]: any,
   text: string | number,
   style: string,
-  colSpan: number,
-  rowSpan: number,
+  colspan: number,
+  rowspan: number,
 } | string | number;

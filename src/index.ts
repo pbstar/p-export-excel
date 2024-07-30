@@ -1,19 +1,16 @@
 import { Config } from './types'
-import {createXlsx} from './create'
-function pExportExcel(e: Config) {
-  let obj = {
-    fileName: e.fileName || '文件',
-    fileType: e.fileType || 'xlsx',
-    sheets: e.sheets || [],
-    sheetStyle: e.sheetStyle || '',
-    rowStyle: e.rowStyle || '',
-    cellStyle: e.cellStyle || '',
-    resType: e.resType || 'download'
-  }
-  let excelFile = createXlsx(obj);
-  let link: any = document.createElement("a");
-  link.href = excelFile;
-  link.download = obj.fileName + "." + obj.fileType;
-  link.click();
+import { createXlsx, createCsv } from './create'
+import { checkConfig } from './check'
+import result from './result';
+function pExportExcel(e: any) {
+  return new Promise((resolve, reject) => {
+    const checkResult: any = checkConfig(e);
+    if (typeof checkResult == 'boolean') return reject('error:config error');
+    const config: Config = checkResult;
+    const resBase64 = config.fileType == 'xlsx' ? createXlsx(config) : createCsv(config);
+    if (!resBase64) return reject('error: create file error');
+    const res = result(config, resBase64)
+    resolve(res)
+  })
 }
 export default pExportExcel

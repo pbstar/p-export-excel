@@ -34,20 +34,23 @@ export function createXlsx(e: Config) {
       let row = sheet.rows[j];
       let rowStyle = ''
       if (e.rowStyle) rowStyle += e.rowStyle
+      if (sheet.rowStyle) rowStyle += sheet.rowStyle
       if (row.style) rowStyle += row.style
       xlsxFile += "<tr style='" + rowStyle + "'>";
       for (let k = 0; k < row.cells.length; k++) {
         let cell = row.cells[k];
+        let cellStyle = ''
+        if (e.cellStyle) cellStyle += e.cellStyle
+        if (sheet.cellStyle) cellStyle += sheet.cellStyle
+        if (row.cellStyle) cellStyle += row.cellStyle
         if (cell instanceof Object) {
-          let cellStyle = ''
-          if (e.cellStyle) cellStyle += e.cellStyle
-          if (cell.style) cellStyle += cell.style
           xlsxFile += "<td";
           if (cell.colspan) xlsxFile += " colspan=" + cell.colspan;
           if (cell.rowspan) xlsxFile += " rowspan=" + cell.rowspan;
+          if (cell.style) cellStyle += cell.style
           xlsxFile += " style='" + cellStyle + "'>" + cell.text + "</td>";
         } else {
-          xlsxFile += "<td>" + cell + "</td>";
+          xlsxFile += "<td style='" + cellStyle + "'>" + cell + "</td>";
         }
       }
       xlsxFile += "</tr>";
@@ -56,7 +59,6 @@ export function createXlsx(e: Config) {
   }
   xlsxFile += "</body>";
   xlsxFile += "</html>";
-  console.log(xlsxFile);
   return 'data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(xlsxFile);
 }
 export function createCsv(e: Config) {
@@ -80,6 +82,5 @@ export function createCsv(e: Config) {
       }
     }
   }
-  console.log(csvFile);
-  return 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(csvFile);
+  return 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvFile);
 }

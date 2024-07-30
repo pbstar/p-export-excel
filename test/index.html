@@ -35,17 +35,17 @@
     // 复杂数据表
     const data2 = {
       fileName: "复杂数据表",
-      rowStyle: "height: 40px;line-height: 40px;",
-      cellStyle: "border: 1px solid #666;",
+      rowStyle: "height: 40px;vertical-align: middle;",
+      cellStyle: "border: 1px solid #eee;width: 100px;text-align: center;",
       sheets: [{
         sheetName: "学生名单",
         style: "font-size: 16px;font-family: 微软雅黑;",
         rows: [
           {
             style: "font-weight: bold;color: #fff;font-size: 18px;",
+            cellStyle: "background-color: #29B8DB;border: 1px solid #fff;",
             cells: [
               {
-                style: "background-color: #29B8DB;text-align: center;border: 1px solid #fff;",
                 text: "三年级（1）班全体学生名单",
                 colspan: 5,
               }
@@ -53,43 +53,23 @@
           },
           {
             style: "font-weight: bold;color: #fff;",
-            cells: [
-              {
-                style: "background-color: #29B8DB;border: 1px solid #fff;",
-                text: "序号",
-              },
-              {
-                style: "background-color: #29B8DB;border: 1px solid #fff;",
-                text: "姓名",
-              },
-              {
-                style: "background-color: #29B8DB;border: 1px solid #fff;",
-                text: "性别",
-              },
-              {
-                style: "background-color: #29B8DB;border: 1px solid #fff;",
-                text: "年龄",
-              },
-              {
-                style: "background-color: #29B8DB;border: 1px solid #fff;",
-                text: "备注",
-              }
-            ]
+            cellStyle: "background-color: #29B8DB;border: 1px solid #fff;",
+            cells: ["序号", "姓名", "性别", "年龄", {
+              text: "备注", style: "width: 200px;"
+            }]
           },
           {
-            style: "",
             cells: ["1", "张三", "男", 12, ""]
           },
           {
-            style: "background-color: #F5F5F5;",
+            cellStyle: "background-color: #F5F5F5;",
             cells: ["2", "李四", "女", 11, ""]
           },
           {
-            style: "",
             cells: ["3", "王五", "男", 12, "校长侄子"]
           },
           {
-            style: "background-color: #F5F5F5;",
+            cellStyle: "background-color: #F5F5F5;",
             cells: ["4", "赵六", "女", 11, ""]
           }
         ]
@@ -97,7 +77,11 @@
     }
     let btn2 = document.getElementById('btn2')
     btn2.onclick = function () {
-      pExportExcel(data2)
+      pExportExcel(data2).then(e => {
+        console.log(e)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   </script>
 </body>

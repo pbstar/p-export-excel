@@ -6,17 +6,20 @@ export type Config = {
   sheetStyle: string,
   rowStyle: string,
   cellStyle: string,
-  resType: 'download' | 'file' | 'base64' | 'blob'
+  resType: 'download' | 'file' | 'base64' | 'blob' | 'bloburl'
 }
 export type Sheet = {
   [key: string]: any,
   sheetName: string,
   style: string,
+  rowStyle: string,
+  cellStyle: string,
   rows: Row[]
 }
 export type Row = {
   [key: string]: any,
   style: string,
+  cellStyle: string,
   cells: Cell[]
 }
 export type Cell = {

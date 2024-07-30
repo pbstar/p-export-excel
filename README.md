@@ -7,7 +7,7 @@
 [![NPM Version](https://img.shields.io/npm/v/p-export-excel?style=flat&color=d4b106)](https://www.npmjs.com/package/p-export-excel)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/p-export-excel?style=flat&color=41B883)](https://www.npmjs.com/package/p-export-excel)
 
-p-export-excel 是一个导出 Excel 的 js 插件。它有着轻量且高效的特性，支持丰富的自定义配置选项。
+p-export-excel 是一个导出 Excel 的 js 插件，支持丰富的自定义配置选项，能够轻松生成 xlsx 和 csv 格式的数据报表。
 
 ![请添加图片描述](https://i-blog.csdnimg.cn/direct/5ff6fea5706c4512827af7853e5c813d.png)
 

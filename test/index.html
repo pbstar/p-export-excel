@@ -16,7 +16,6 @@
     // 简约数据表
     const data1 = {
       fileName: "简约数据表",
-      isPreview: true,
       fileType: 'csv',
       sheets: [
         {
@@ -76,6 +75,20 @@
             cells: ["4", "赵六", "女", 11, ""]
           }
         ]
+      }, {
+        sheetName: "Sheet2",
+        rows: [
+          {
+            cells: ["姓名", "年龄", "性别"]
+          },
+          {
+            cells: ["张三", 12, "男"]
+          },
+          {
+            cells: ["李四", 11, "女"]
+          }
+        ]
+
       }]
     }
     let btn2 = document.getElementById('btn2')

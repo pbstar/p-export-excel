@@ -7,7 +7,8 @@ export function checkConfig(e: Config) {
     sheetStyle: '',
     rowStyle: '',
     cellStyle: '',
-    resType: 'download'
+    resType: 'download',
+    isPreview: false
   }
   if (!e) {
     console.error('请传入配置参数')
@@ -77,6 +78,13 @@ export function checkConfig(e: Config) {
       return false
     }
     config.resType = e.resType
+  }
+  if (e.isPreview || e.isPreview === false) {
+    if (typeof e.isPreview !== 'boolean') {
+      console.error('isPreview参数类型错误，请传入布尔值')
+      return false
+    }
+    config.isPreview = e.isPreview
   }
   return config
 }

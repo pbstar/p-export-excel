@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./test.js"></script>
+  <script>
+    excel.option({
+      title: '测试',
+      sheets: [
+        {
+          name: '出入库汇总表',
+          column: [
+            {
+              label: '原材料收发结存表',
+              headerslot: true,
+              style: 'text-align: center; font-size: 20px; height: 40px',
+              colspan: 10
+            },
+            {
+              headerslot: true,
+              children: [
+                {
+                  label: '编制单位：测试公司',
+                  style: 'text-align: center',
+                  colspan: 5
+                },
+                {
+                  label: `期间：1`,
+                  style: 'text-align: center',
+                  colspan: 3
+                },
+                {
+                  label: `单位：吨、元`,
+                  style: 'text-align: center',
+                  colspan: 2
+                }
+              ]
+            },
+            {
+              bottomslot: true,
+              children: [
+                {
+                  label: '审核人：',
+                  style: 'font-size: 15px',
+                  colspan: 5
+                },
+                {
+                  label: '制表人：',
+                  style: 'font-size: 15px',
+                  colspan: 5
+                }
+              ]
+            },
+            {
+              label: '原材料',
+              prop: 'name'
+            },
+            {
+              label: '单位',
+              prop: 'unit'
+            },
+            {
+              label: '月初结存',
+              children: [
+                {
+                  label: '数量',
+                  prop: '_weigh'
+                },
+                {
+                  label: '金额',
+                  prop: '_amount'
+                }
+              ]
+            },
+            {
+              label: '本月增加',
+              children: [
+                {
+                  label: '数量',
+                  prop: 'monthInWeigh',
+                  exceltype: 'string'
+                },
+                {
+                  label: '金额',
+                  prop: 'monthInAmount',
+                  exceltype: 'string'
+                }
+              ]
+            },
+            {
+              label: '本月减少',
+              children: [
+                {
+                  label: '数量',
+                  prop: 'monthOutWeigh',
+                  exceltype: 'string'
+                },
+                {
+                  label: '金额',
+                  prop: 'monthOutAmount',
+                  exceltype: 'string'
+                }
+              ]
+            },
+            {
+              label: '月末结存',
+              children: [
+                {
+                  label: '数量',
+                  prop: 'endWeigh',
+                  exceltype: 'string'
+                },
+                {
+                  label: '金额',
+                  prop: 'endAmount',
+                  exceltype: 'string'
+                }
+              ]
+            }
+          ],
+          data: []
+        },
+        {
+          name: '1库入库明细表',
+          column: [
+            {
+              label: `入库明细表`,
+              headerslot: true,
+              style: 'text-align: center; font-size: 20px; height: 40px',
+              colspan: 12
+            },
+            {
+              label: `测试`,
+              prop: 'test'
+            }
+          ],
+          data: []
+        },
+        {
+          name: '出库明细',
+          column: [
+            {
+              label: `销售出库明细`,
+              headerslot: true,
+              style: 'text-align: center; font-size: 20px; height: 40px',
+              colspan: 9
+            },
+            {
+              label: '序号',
+              prop: 'index',
+              exceltype: 'string'
+            },
+            {
+              label: '日期',
+              prop: 'businessDate'
+            },
+            {
+              label: '单位名称',
+              prop: 'bodyName'
+            },
+            {
+              label: '项目名称',
+              prop: 'materialName'
+            },
+            {
+              label: '单位',
+              prop: 'unit'
+            },
+            {
+              label: '数量',
+              prop: 'weigh',
+              exceltype: 'string'
+            },
+            {
+              label: '单价',
+              prop: 'unitPrice',
+              exceltype: 'string'
+            },
+            {
+              label: '金额',
+              prop: 'orderAmount',
+              exceltype: 'string'
+            },
+            {
+              label: '备注',
+              prop: 'remark'
+            }
+          ],
+          data: []
+        }
+      ]
+    })
+
+  </script>
+</body>
+
+</html>

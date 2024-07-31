@@ -19,6 +19,7 @@ p-export-excel 是一个导出 Excel 的 js 插件，支持丰富的自定义配
 - rowStyle: 数据行样式，支持 css 样式，字符串。
 - cellStyle: 单元格样式，支持 css 样式，字符串。
 - resType: 资源类型，字符串（值为 download、file、base64、blob 以及 bloburl，默认为 download）。
+- isPreview: 是否预览，布尔值（默认为 false）。
 - sheets: 工作表，数组（值为对象）。
   - sheetName: 工作表名称，字符串。
   - style: 工作表样式，支持 css 样式，字符串。

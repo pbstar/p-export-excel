@@ -6,7 +6,8 @@ export type Config = {
   sheetStyle: string,
   rowStyle: string,
   cellStyle: string,
-  resType: 'download' | 'file' | 'base64' | 'blob' | 'bloburl'
+  resType: 'download' | 'file' | 'base64' | 'blob' | 'bloburl',
+  isPreview: boolean,
 }
 export type Sheet = {
   [key: string]: any,

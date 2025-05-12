@@ -1,6 +1,6 @@
 {
   "name": "p-export-excel",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "p-export-excel",
   "main": "./lib/p-export-excel.es.js",
   "browser": "./lib/p-export-excel.umd.js",
@@ -10,6 +10,13 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "cross-env NODE_ENV=dev rollup -c -w"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./lib/p-export-excel.es.js",
+      "require": "./lib/p-export-excel.umd.js"
+    }
   },
   "bugs": {
     "url": "https://github.com/pbstar/p-export-excel/issues"
